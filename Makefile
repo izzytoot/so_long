@@ -13,13 +13,11 @@
 #==============================================================================#
 #                                NAMES & PATHS                                 #
 #==============================================================================#
-NAME = so_long.a 
+NAME = so_long
 HEADER_PATH = so_long.h
-SRCS = teste.c
+SRCS = main.c
 OBJS = $(SRCS:.c=.o)
 
-EXEC_SRC = main.c
-EXEC = so_long
 
 LIBFT_DIR = ./libft/
 LIBFT = ./libft/libft.a
@@ -32,7 +30,7 @@ MLX = $(MLX_DIR)/libmlx.a
 C_COMP = cc
 
 FLAGS = -Wall -Werror -Wextra
-FLAGS += -g -I mlx_linux
+FLAGS += -g -Imlx_linux
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 RM = rm -f
@@ -48,20 +46,13 @@ GREEN		= "\033[0;32m"
 YELLOW		= "\033[0;33m" 
 RESET		= "\033[0m"
 #==============================================================================#
-#                                  RULES                                       #
+#                               RULES & DEPS                                   #
 #==============================================================================#
-all: $(NAME) exec
+all: $(MLX) $(LIBFT) $(NAME)
 
 %.o: %.c 
-	@$(C_COMP) $(FLAGS) $(MLX_FLAGS) -c $< -o $@
+	@$(C_COMP) $(FLAGS) -c $< -o $@
 
-$(NAME): $(OBJS)
-	@$(AR) $(NAME) $(OBJS)
-	@echo $(GREEN) "$(NAME) was created successfully!" $(RESET)
-
-#==============================================================================#
-#                                 EXEC & MLX                                   #
-#==============================================================================#
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
 
@@ -72,26 +63,28 @@ $(MLX):
 	fi
 	@$(MAKE) -C $(MLX_DIR)
 
- exec: $(MLX) $(LIBFT)
-	@$(C_COMP) $(FLAGS) $(MLX_FLAGS) $(SRCS) $(EXEC_SRC) $(LIBFT) $(NAME) -L -lft -o $(EXEC)
-	@echo $(GREEN) "$(EXEC) program was created successfully!"$(RESET)
-
+$(NAME): $(MLX) $(OBJS) $(LIBFT)
+	@$(CC) $(FLAGS) $(OBJS) $(MLX_FLAGS) -L$(LIBFT_DIR) -lft -o $(NAME)
+	@echo $(GREEN) "$(NAME) was created successfully!" $(RESET)
 #==============================================================================#
 #                                  CLEAN RULES                                 #
 #==============================================================================#
 clean:
-	@$(RM) -f $(OBJS)
+	@$(RM) $(OBJS)
 	@echo $(RED) "All .o files were deleted!" $(RESET)
 
-fcleanlib:
-	@$(MAKE) -C $(LIBFT_DIR) fclean
+cleanall: clean
+	@$(MAKE) clean -C $(LIBFT_DIR)
+	@$(MAKE) clean -C $(MLX_DIR)
 
 fclean: clean
-	@$(RM) $(NAME) $(EXEC)
-	@echo $(RED) "$(NAME) and $(EXEC) were deleted!" $(RESET)
+	@$(RM) $(NAME)
+	@echo $(RED) "$(NAME) was deleted!" $(RESET)
 
-fcleanall: fcleanlib fclean
+fcleanall: cleanall fclean
+	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(MAKE) -C $(MLX_DIR) clean
 
 re: fclean all
 
-.PHONY: all clean fclean re exec 
+.PHONY: all clean fclean re cleanall fcleanall

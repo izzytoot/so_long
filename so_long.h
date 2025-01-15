@@ -13,13 +13,24 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# include "libft/libft.h"
+# include "mlx_linux/mlx.h"
+
+
 # include <stdlib.h>
-# include <stdio.h>
 # include <stdbool.h>
 # include <stddef.h>
 # include <limits.h>
 # include "libft/libft.h"
 
-void	ft_teste(char *str);
+typedef struct	s_data 
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_len;
+	int		endian;
+}	t_data;
+
 
 #endif
