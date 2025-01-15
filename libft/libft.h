@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "printf/ft_printf.h"
+# include "gnl/get_next_line.h"
 # include "../so_long.h"
 
 int		ft_atoi(const char *nptr);

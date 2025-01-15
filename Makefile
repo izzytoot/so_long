@@ -6,7 +6,7 @@
 #    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 16:07:12 by root              #+#    #+#              #
-#    Updated: 2025/01/13 20:29:26 by root             ###   ########.fr        #
+#    Updated: 2025/01/15 19:16:08 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@
 #==============================================================================#
 NAME = so_long
 HEADER_PATH = so_long.h
-SRCS = main.c
+SRCS_PATH = ./srcs/
+SRCS = $(addprefix $(SRCS_PATH)/, main.c map_reading.c map_parsing.c)
 OBJS = $(SRCS:.c=.o)
-
 
 LIBFT_DIR = ./libft/
 LIBFT = ./libft/libft.a
