@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_reading.c                                      :+:      :+:    :+:   */
+/*   map_read_and_load.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 18:04:32 by root              #+#    #+#             */
-/*   Updated: 2025/01/15 19:21:33 by root             ###   ########.fr       */
+/*   Updated: 2025/01/16 19:46:58 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-static int	width_of_map(char *str)
+int	width_of_map(char *str)
 {
 	int	width;
 
@@ -24,7 +24,7 @@ static int	width_of_map(char *str)
 	return (width);
 }
 
-static int	new_line(t_game *game, char *line)
+int	load_line_to_map(t_game *game, char *line)
 {
 	char **temp;
 	int	i;
@@ -32,34 +32,50 @@ static int	new_line(t_game *game, char *line)
 	if(!line)
 		return (0);
 	i = 0;
-	game->map_height++;
-	temp = (char **)malloc(sizeof(char *) * (game->map_height + 1));
-	while (i < game->map_height - 1)
+	temp = malloc(sizeof(char *) * (game->map_height + 2));
+	if (!temp)
+		return(0);
+	while (i < game->map_height)
 	{
 		temp[i] = game->map[i];
 		i++;
 	}
-	*temp[i] = line;
+	temp[game->map_height] = line;
+	temp[game->map_height + 1] = NULL;
 	if (game->map)
 		free(game->map);
 	game->map = temp;
+	game->map_height++;
 	return (1);
 }
 
-int	map_reading(t_game *game, char *map_file)
+int	map_loading(t_game *game, char *map_file)
 {
-	char *readmap;
+	char *read_line;
 	
 	game->fd = open(map_file, O_RDONLY);
 	if (game->fd < 0)
 		return (0);
+	game->map = NULL;
+	game->map_height = 0;
 	while (1)
 	{
-		readmap = get_next_line(game->fd);
-		if(!new_line(game, &readmap))
+		read_line = get_next_line(game->fd);
+		if(!read_line)
 			break;
+		if(!load_line_to_map(game, read_line))
+		{
+			free(read_line);
+			break;
+		}
 	}
 	close(game->fd);
-	game->map_width = width_of_map(game->map[0]);
+	if (game->map && game->map[0])
+		game->map_width = width_of_map(game->map[0]);
+	else
+		game->map_width = 0;
+	print_map(game->map, game);
+	ft_printf("\nheight: %d\n", game->map_height);
+	ft_printf("width: %d\n", game->map_width);
 	return (1);
 }

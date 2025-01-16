@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:12:02 by root              #+#    #+#             */
-/*   Updated: 2025/01/15 19:18:22 by root             ###   ########.fr       */
+/*   Updated: 2025/01/16 19:05:31 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int	main(int ac, char **av)
 	
 	if (ac != 2)
 		ft_printf("\033[0;31mNo map added. Please run program with map: ./so_long <map_file>\n\033[0m");
-	map_reading(&super_kiwi, av[1]);
+	map_loading(&super_kiwi, av[1]);
+	check_map_errors(&super_kiwi);
+	free_map(&super_kiwi);
 }
 /*
 	mlx = mlx_init();

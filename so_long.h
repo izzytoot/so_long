@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:12:27 by root              #+#    #+#             */
-/*   Updated: 2025/01/15 19:16:14 by root             ###   ########.fr       */
+/*   Updated: 2025/01/16 19:15:41 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 
+/* ************************************************************************** */
+/*                                    STRUCTS                                 */
+/* ************************************************************************** */
+
 typedef struct s_position
 {
 	int	x;
@@ -33,11 +37,27 @@ typedef struct s_position
 typedef struct s_game
 {
 	int		fd;
+	char	**map;
 	int		map_height;
 	int		map_width;
-	char	**map;
 }	t_game;
 
-int	map_reading(t_game *game, char *map_file);
+/* ************************************************************************** */
+/*                                 PROTOTYPES                                 */
+/* ************************************************************************** */
+
+//map_read_and_load.c
+int	map_loading(t_game *game, char *map_file);
+int	load_line_to_map(t_game *game, char *line);
+int	width_of_map(char *str);
+
+//map_parsing.c
+void	check_map_errors(t_game *game);
+
+//map_utils.c
+void free_map(t_game *game);
+void print_map(char **map, t_game *game);
+void	clear_game(t_game *game);
+void	close_game(t_game *game, char *message);
 
 #endif
