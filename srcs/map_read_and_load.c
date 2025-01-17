@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 18:04:32 by root              #+#    #+#             */
-/*   Updated: 2025/01/16 19:46:58 by root             ###   ########.fr       */
+/*   Updated: 2025/01/17 17:36:17 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,18 @@ int	width_of_map(char *str)
 int	load_line_to_map(t_game *game, char *line)
 {
 	char **temp;
+	size_t len;
 	int	i;
 
 	if(!line)
 		return (0);
+	len = ft_strlen(line);
+	if (len > 0 && line[len - 1] == '\n')
+		line[len - 1] = '\0';
 	i = 0;
 	temp = malloc(sizeof(char *) * (game->map_height + 2));
 	if (!temp)
-		return(0);
+		close_game(game, "\033[0;31mError: memory allocation failed.\033[0m");
 	while (i < game->map_height)
 	{
 		temp[i] = game->map[i];
@@ -74,8 +78,6 @@ int	map_loading(t_game *game, char *map_file)
 		game->map_width = width_of_map(game->map[0]);
 	else
 		game->map_width = 0;
-	print_map(game->map, game);
-	ft_printf("\nheight: %d\n", game->map_height);
-	ft_printf("width: %d\n", game->map_width);
+//	print_map(game->map, game);
 	return (1);
 }

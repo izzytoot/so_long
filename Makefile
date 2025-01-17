@@ -6,7 +6,7 @@
 #    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 16:07:12 by root              #+#    #+#              #
-#    Updated: 2025/01/16 19:08:14 by root             ###   ########.fr        #
+#    Updated: 2025/01/17 17:20:50 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 NAME = so_long
 HEADER_PATH = so_long.h
 SRCS_PATH = ./srcs/
-SRCS = $(addprefix $(SRCS_PATH)/, main.c map_read_and_load.c map_parsing.c game_utils.c)
+SRCS = $(addprefix $(SRCS_PATH)/, main.c map_read_and_load.c map_error_check.c map_access_check.c free_clear_and_close.c game_utils.c)
 OBJS = $(SRCS:.c=.o)
 
 LIBFT_DIR = ./libft/
