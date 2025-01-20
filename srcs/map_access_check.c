@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   map_access_check.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 15:07:21 by root              #+#    #+#             */
-/*   Updated: 2025/01/17 23:42:14 by root             ###   ########.fr       */
+/*   Updated: 2025/01/20 16:09:15 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../so_long.h"
+#include "../so_long.h"
 
-void	prep_chars(t_game	*game)
+void	prep_chars(t_game *game)
 {
 	int	x;
 	int	y;
-	
+
 	y = 0;
 	while (y < game->map_height)
 	{
@@ -35,66 +35,69 @@ void	prep_chars(t_game	*game)
 	}
 }
 
-void	flood_fill(t_game *game, t_position	starting_point, char target)
+void	flood_fill(t_game *game, t_position	start_p, char target)
 {
 	t_position	new_position;
-	
-	if (starting_point.x < 0 || starting_point.x >= game->map_width || starting_point.y < 0 || starting_point.y >= game->map_height)
+
+	if (start_p.x < 0 || start_p.x >= game->map_width
+		|| start_p.y < 0 || start_p.y >= game->map_height)
 		return ;
-	if (game->map[starting_point.y][starting_point.x] == 'F' || game->map[starting_point.y][starting_point.x] != target)
+	if (game->map[start_p.y][start_p.x] == 'F'
+		|| game->map[start_p.y][start_p.x] != target)
 		return ;
-	game->map[starting_point.y][starting_point.x] = 'F';
-	new_position = (t_position){starting_point.x + 1, starting_point.y};
+	game->map[start_p.y][start_p.x] = 'F';
+	new_position = (t_position){start_p.x + 1, start_p.y};
 	flood_fill(game, new_position, target);
-	new_position = (t_position){starting_point.x - 1, starting_point.y};
+	new_position = (t_position){start_p.x - 1, start_p.y};
 	flood_fill(game, new_position, target);
-	new_position = (t_position){starting_point.x, starting_point.y + 1};
+	new_position = (t_position){start_p.x, start_p.y + 1};
 	flood_fill(game, new_position, target);
-	new_position = (t_position){starting_point.x, starting_point.y - 1};
+	new_position = (t_position){start_p.x, start_p.y - 1};
 	flood_fill(game, new_position, target);
 }
 
 int	check_route(t_game *game)
 {
-	t_position new_E;
-	t_position new_C;
-	int	c;
-	
-	new_E = (t_position){game->pos_E.y, game->pos_E.x};
-	if (game->map[new_E.y][new_E.x] != 'F')
+	t_position	new_e;
+	int			c;
+
+	new_e = (t_position){game->pos_e.y, game->pos_e.x};
+	if (game->map[new_e.y][new_e.x] != 'F')
 		return (0);
 	c = 0;
-	while(c < game->nb_collectables)
+	while (c < game->nb_collectables)
 	{
-		new_C = (t_position){game->pos_C[c].y, game->pos_C[c].x};
-		if (game->map[new_C.y][new_C.x] != 'F')
+		if (game->map[game->pos_c[c].y][game->pos_c[c].x] != 'F')
 			return (0);
 		c++;
 	}
 	return (1);
 }
 
-void	map_access_check(t_game *game)
+int	map_access_check(t_game *game)
 {
 	t_game	*temp_game;
-	int	size;
-	
+
 	if (!game)
-		return ;
-	size = game->map_height * game->map_width;
-	temp_game = malloc(sizeof(t_position) * size);
-	if(!temp_game)
-		close_game(game, "\033[0;31mError: memory allocation failed.\033[0m");
-	temp_game = game;
-	temp_game->temp = true;
+		return (0);
+	temp_game = malloc(sizeof(t_game));
+	if (!temp_game)
+	{
+		close_temp_game(temp_game);
+		return (0);
+	}
+	*temp_game = *game;
+	copy_map(game, temp_game);
+	if (game->pos_c)
+		copy_pos_c(game, temp_game);
 	prep_chars(temp_game);
-	flood_fill(temp_game, temp_game->pos_P, '0');
-	//print_map(game->map, game);
+	flood_fill(temp_game, temp_game->pos_p, '0');
 	if (!check_route(temp_game))
-		close_game(game, "\033[0;31mError: inaccessible exit or collectable.\033[0m");
-	close_game(temp_game, "");
+	{
+		close_temp_game(temp_game);
+		close_game(game, "\033[0;31mError: no access to E or C.\033[0m");
+		return (0);
+	}
+	close_temp_game(temp_game);
+	return (1);
 }
-/*
-	memory issue - leaks + core dump with invalid maps
-	check if pos_E and pos_c are filled
-*/

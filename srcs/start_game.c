@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_utils.c                                       :+:      :+:    :+:   */
+/*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/20 16:52:35 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/01/20 17:01:49 by icunha-t         ###   ########.fr       */
+/*   Created: 2025/01/20 16:33:12 by icunha-t          #+#    #+#             */
+/*   Updated: 2025/01/20 17:05:00 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int	free_displays(t_game *game)
+void	open_window(t_game *game)
 {
-    mlx_destroy_window(game->mlx, game->win);
-    mlx_destroy_display(game->mlx);
-    free(game->mlx);
-    ft_printf("Closing Application!");
-    exit(1);
-    return (0);
+	game->mlx = mlx_init();
+	game->win = mlx_new_window(game->mlx, 500, 500, "Super Kiwi");
+	mlx_hook(game->win, DestroyNotify, 0L, free_displays, &game);
+	mlx_loop(game->mlx);
 }

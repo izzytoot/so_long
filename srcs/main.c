@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:12:02 by root              #+#    #+#             */
-/*   Updated: 2025/01/17 18:55:27 by root             ###   ########.fr       */
+/*   Updated: 2025/01/20 16:43:37 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,19 @@
 int	main(int ac, char **av)
 {
 	t_game	super_kiwi;
-	
+
 	if (ac != 2)
 	{
-		ft_printf("\033[0;31mNo map added. Please run program with map: ./so_long <map_file>\n\033[0m");
-		exit (0);
+		ft_printf("\033[0;31mNo map added. Run: ./so_long <map_file>\n\033[0m");
+		return (0);
 	}
 	super_kiwi = set_game_start(&super_kiwi);
 	map_loading(&super_kiwi, av[1]);
-	check_map_errors(&super_kiwi);
-	map_access_check(&super_kiwi);
+	if (!check_map_errors(&super_kiwi))
+		return (0);
+	if (!map_access_check(&super_kiwi))
+		return (0);
+	open_window(&super_kiwi);
 	close_game(&super_kiwi, "The game has ended!");
 	return (0);
 }
@@ -36,5 +39,10 @@ int	main(int ac, char **av)
 	mlx_pixel_put(mlx, mlx_win, 5, 5, 0x00FF0000);
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 200, 200);
 	mlx_loop(mlx);
-*/
 
+joao:
+	load_images(&game);
+	start_window(&game);
+	render_map(&game);
+
+*/

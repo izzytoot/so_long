@@ -14,7 +14,7 @@
 
 static int	count_words(char const *str, char c)
 {
-	int	words;
+	int		words;
 	char	prev_char;
 	int		i;
 
@@ -55,7 +55,7 @@ static int	error_malloc(char **sing_word, int pos, int buffer)
 static int	fill_new_arr(char **sing_word, char const *str, char c)
 {
 	int		i;
-	int	len;
+	int		len;
 
 	i = 0;
 	if (!sing_word)
@@ -83,7 +83,7 @@ static int	fill_new_arr(char **sing_word, char const *str, char c)
 
 char	**ft_split(char const *str, char c)
 {
-	int	words;
+	int		words;
 	char	**new_arr;
 
 	if (!str)

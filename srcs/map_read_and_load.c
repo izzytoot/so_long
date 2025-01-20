@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_read_and_load.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 18:04:32 by root              #+#    #+#             */
-/*   Updated: 2025/01/17 17:36:17 by root             ###   ########.fr       */
+/*   Updated: 2025/01/20 15:44:16 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int	width_of_map(char *str)
 
 int	load_line_to_map(t_game *game, char *line)
 {
-	char **temp;
-	size_t len;
-	int	i;
+	char	**temp;
+	size_t	len;
+	int		i;
 
-	if(!line)
+	if (!line)
 		return (0);
 	len = ft_strlen(line);
 	if (len > 0 && line[len - 1] == '\n')
@@ -55,8 +55,8 @@ int	load_line_to_map(t_game *game, char *line)
 
 int	map_loading(t_game *game, char *map_file)
 {
-	char *read_line;
-	
+	char	*read_line;
+
 	game->fd = open(map_file, O_RDONLY);
 	if (game->fd < 0)
 		return (0);
@@ -65,12 +65,12 @@ int	map_loading(t_game *game, char *map_file)
 	while (1)
 	{
 		read_line = get_next_line(game->fd);
-		if(!read_line)
-			break;
-		if(!load_line_to_map(game, read_line))
+		if (!read_line)
+			break ;
+		if (!load_line_to_map(game, read_line))
 		{
 			free(read_line);
-			break;
+			break ;
 		}
 	}
 	close(game->fd);
@@ -78,6 +78,5 @@ int	map_loading(t_game *game, char *map_file)
 		game->map_width = width_of_map(game->map[0]);
 	else
 		game->map_width = 0;
-//	print_map(game->map, game);
 	return (1);
 }

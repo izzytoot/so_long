@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_error_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 18:04:32 by root              #+#    #+#             */
-/*   Updated: 2025/01/17 20:40:22 by root             ###   ########.fr       */
+/*   Updated: 2025/01/20 15:42:58 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	check_form(t_game *game)
 {
-	int	i;
+	int		i;
 	size_t	row_size;
-	
+
 	if (!game || !game->map)
 		return (0);
 	i = 0;
 	row_size = game->map_width;
-	while(i < game->map_height - 1)
+	while (i < game->map_height - 1)
 	{
 		if (ft_strlen(game->map[i]) != row_size)
 			return (0);
@@ -51,11 +51,11 @@ int	check_walls(t_game *game)
 	return (1);
 }
 
-int	check_E_P(t_game *game)
+int	check_e_p(t_game *game)
 {
 	int	x;
 	int	y;
-	
+
 	y = 0;
 	while (++y < game->map_height)
 	{
@@ -65,25 +65,25 @@ int	check_E_P(t_game *game)
 			if (game->map[y][x] == 'P')
 			{
 				game->nb_players++;
-				assign_pos_P_E(game, y, x, 'P');
+				assign_p_e(game, y, x, 'P');
 			}
 			if (game->map[y][x] == 'E')
 			{
 				game->nb_exit++;
-				assign_pos_P_E(game, y, x, 'E');
+				assign_p_e(game, y, x, 'E');
 			}
 		}
 	}
 	if (game->nb_players != 1 || game->nb_exit != 1)
-		return (0);	
+		return (0);
 	return (1);
 }
 
-int	check_C(t_game *game)
+int	check_c(t_game *game)
 {
 	int	x;
 	int	y;
-	
+
 	y = 0;
 	while (y < game->map_height)
 	{
@@ -98,23 +98,21 @@ int	check_C(t_game *game)
 	}
 	if (game->nb_collectables < 1)
 		return (0);
-	assign_pos_C(game);
+	assign_c(game);
 	return (1);
 }
 
-void	check_map_errors(t_game *game)
+int	check_map_errors(t_game *game)
 {
-	if (!game)
-		close_game(game, "\033[0;31mError: no game found.\033[0m");
-	if (!game->map)
-		close_game(game, "\033[0;31mError: no map found.\033[0m");
+	if (!game || !game->map)
+		close_game(game, "\033[0;31mError: game or map not found.\033[0m");
 	if (!check_form(game))
 		close_game(game, "\033[0;31mError: map format is incorrect.\033[0m");
 	if (!check_walls(game))
-			close_game(game, "\033[0;31mError: wall is missing.\033[0m");
-	if (!check_E_P(game))
-		close_game(game, "\033[0;31mError: incorrect number of exits or starting positions.\033[0m");
-	if (!check_C(game))
-		close_game(game, "\033[0;31mError: incorrect number of colectables.\033[0m");
+		close_game(game, "\033[0;31mError: wall is missing.\033[0m");
+	if (!check_e_p(game))
+		close_game(game, "\033[0;31mError: too many exits or players.\033[0m");
+	if (!check_c(game))
+		close_game(game, "\033[0;31mError: not enough collectables.\033[0m");
+	return (1);
 }
-
