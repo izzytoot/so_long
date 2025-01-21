@@ -6,18 +6,15 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:52:35 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/01/20 17:01:49 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/01/21 13:48:19 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int	free_displays(t_game *game)
+int close_window(void *param)
 {
-    mlx_destroy_window(game->mlx, game->win);
-    mlx_destroy_display(game->mlx);
-    free(game->mlx);
-    ft_printf("Closing Application!");
-    exit(1);
+    t_game *game = (t_game *)param;
+    close_game(game, "The game has ended!");
     return (0);
 }

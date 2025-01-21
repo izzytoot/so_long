@@ -6,12 +6,13 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:12:27 by root              #+#    #+#             */
-/*   Updated: 2025/01/20 17:02:44 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:35:27 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
+# define TILE_SIZE 32
 
 # include "libft/libft.h"
 # include "mlx_linux/mlx.h"
@@ -23,6 +24,11 @@
 # include <limits.h>
 # include <fcntl.h>
 # include "libft/libft.h"
+
+/* ************************************************************************** */
+/*                                    MACROS                                  */
+/* ************************************************************************** */
+
 
 /* ************************************************************************** */
 /*                                    STRUCTS                                 */
@@ -48,6 +54,13 @@ typedef struct s_game
 	t_position	*pos_c;
 	void		*mlx;
 	void		*win;
+	void		*img_super_kiwi;
+	void		*img_lawn;
+	void		*img_water;
+	void		*img_kiwi_fruit;
+	void		*img_box_closed;
+	void		*img_box_open;
+	bool		open_box;
 }	t_game;
 
 /* ************************************************************************** */
@@ -78,15 +91,18 @@ void	copy_map(t_game	*original_game, t_game *temp_game);
 void	copy_pos_c(t_game	*original_game, t_game *temp_game);
 
 // start_game.c
-void	open_window(t_game *game);
+void	open_game(t_game *game);
+void	upload_images(t_game *game);
+void	render_map(t_game *game);
+void	place_image(t_game *game, int y, int x);
 
 //game_utils.c
-int	free_displays(t_game *game);
+int 	close_window(void *param);
 
 //free_clear_and_close.c
-void	free_map(t_game *game);
-void	clear_game(t_game *game);
 void	close_temp_game(t_game *temp_game);
+void	clear_game(t_game *game);
+void	kill_game(t_game *game);
 void	close_game(t_game *game, char *message);
 
 //to delete

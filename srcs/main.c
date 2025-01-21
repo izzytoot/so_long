@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:12:02 by root              #+#    #+#             */
-/*   Updated: 2025/01/20 16:43:37 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:39:50 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,9 @@ int	main(int ac, char **av)
 		return (0);
 	if (!map_access_check(&super_kiwi))
 		return (0);
-	open_window(&super_kiwi);
+	super_kiwi.mlx = mlx_init();
+	open_game(&super_kiwi);
 	close_game(&super_kiwi, "The game has ended!");
 	return (0);
 }
-/*
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 500, 500, "Hello world!");
-	img.img = mlx_new_image(mlx, 5, 5);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_len, &img.endian);
-	mlx_pixel_put(mlx, mlx_win, 5, 5, 0x00FF0000);
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 200, 200);
-	mlx_loop(mlx);
 
-joao:
-	load_images(&game);
-	start_window(&game);
-	render_map(&game);
-
-*/

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_utils.c                                       :+:      :+:    :+:   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:49:37 by root              #+#    #+#             */
-/*   Updated: 2025/01/20 16:10:10 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:35:06 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,15 @@ t_game	set_game_start(t_game *game)
 	game->pos_e.y = 0;
 	game->pos_e.x = 0;
 	game->pos_c = NULL;
+	game->mlx = NULL;
+	game->win = NULL;
+	game->img_super_kiwi = NULL;
+	game->img_lawn = NULL;
+	game->img_water = NULL;
+	game->img_kiwi_fruit = NULL;
+	game->img_box_closed = NULL;
+	game->img_box_open = NULL;
+	game->open_box = false;
 	return (*game);
 }
 
