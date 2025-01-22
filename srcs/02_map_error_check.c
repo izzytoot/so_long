@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_error_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 18:04:32 by root              #+#    #+#             */
-/*   Updated: 2025/01/20 15:42:58 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:30:18 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,14 @@ int	check_c(t_game *game)
 int	check_map_errors(t_game *game)
 {
 	if (!game || !game->map)
-		close_game(game, "\033[0;31mError: game or map not found.\033[0m");
+		close_game(game, RED"Error: game or map not found."RESET);
 	if (!check_form(game))
-		close_game(game, "\033[0;31mError: map format is incorrect.\033[0m");
+		close_game(game, RED"Error: map format is incorrect."RESET);
 	if (!check_walls(game))
-		close_game(game, "\033[0;31mError: wall is missing.\033[0m");
+		close_game(game, RED"Error: wall is missing."RESET);
 	if (!check_e_p(game))
-		close_game(game, "\033[0;31mError: too many exits or players.\033[0m");
+		close_game(game, RED"Error: incorret number of exits or players."RESET);
 	if (!check_c(game))
-		close_game(game, "\033[0;31mError: not enough collectables.\033[0m");
+		close_game(game, RED"Error: not enough collectables."RESET);
 	return (1);
 }

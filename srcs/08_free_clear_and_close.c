@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_clear_and_close.c                             :+:      :+:    :+:   */
+/*   08_free_clear_and_close.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:19:38 by root              #+#    #+#             */
-/*   Updated: 2025/01/21 17:31:39 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/01/22 19:00:00 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	close_temp_game(t_game *temp_game)
 		free(temp_game->pos_c);
 		temp_game->pos_c = NULL;
 	}
+	if (temp_game->img)
+    	free(temp_game->img);
 	free(temp_game);
 }
 
@@ -48,42 +50,39 @@ void	clear_game(t_game *game)
 	i = 0;
 	while (i < game->map_height)
 	{
-		if (game->map)
-		{
-			free(game->map[i]);
-			game->map[i] = NULL;
-		}
+		free(game->map[i]);
+		game->map[i] = NULL;
 		i++;
 	}
-	if (game->map)
-		free(game->map);
+	free(game->map);
 	game->map = NULL;
 	if (game->pos_c)
-	{
 		free(game->pos_c);
-		game->pos_c = NULL;
-	}
+	game->pos_c = NULL;
+	if (game->img)
+    	free(game->img);
+	game->img = NULL;
 }
 
-void	kill_game(t_game *game)
+void	kill_game_visuals(t_game *game)
 {
 	if (!game)
-        return;
-	if (game->img_super_kiwi)
-		mlx_destroy_image(game->mlx, game->img_super_kiwi);
-	if (game->img_water)
-		mlx_destroy_image(game->mlx, game->img_water);
-	if (game->img_lawn)
-		mlx_destroy_image(game->mlx, game->img_lawn);
-	if (game->img_kiwi_fruit)
-		mlx_destroy_image(game->mlx, game->img_kiwi_fruit);
-	if (game->img_box_closed)
-		mlx_destroy_image(game->mlx, game->img_box_closed);
-	if (game->img_box_open)
-		mlx_destroy_image(game->mlx, game->img_box_open);
+        return ;
+	if (game->img->super_kiwi)
+		mlx_destroy_image(game->mlx, game->img->super_kiwi);
+	if (game->img->water)
+		mlx_destroy_image(game->mlx, game->img->water);
+	if (game->img->lawn)
+		mlx_destroy_image(game->mlx, game->img->lawn);
+	if (game->img->kiwi_fruit)
+		mlx_destroy_image(game->mlx, game->img->kiwi_fruit);
+	if (game->img->box_closed)
+		mlx_destroy_image(game->mlx, game->img->box_closed);
+	if (game->img->box_open)
+		mlx_destroy_image(game->mlx, game->img->box_open);
 	if (game->win)
 	{	
-		mlx_destroy_image(game->mlx, game->win);
+		mlx_destroy_window(game->mlx, game->win);
 		game->win = NULL;
 	}
 	if (game->mlx)
@@ -98,8 +97,8 @@ void	close_game(t_game *game, char *message)
 {
 	if (!game)
 		return ;
+	kill_game_visuals(game);
 	clear_game(game);
-	kill_game(game);
 	if (message)
 		ft_printf("%s\n", message);
 	exit (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_access_check.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 15:07:21 by root              #+#    #+#             */
-/*   Updated: 2025/01/20 16:09:15 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/01/22 14:43:12 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	map_access_check(t_game *game)
 	if (!check_route(temp_game))
 	{
 		close_temp_game(temp_game);
-		close_game(game, "\033[0;31mError: no access to E or C.\033[0m");
+		close_game(game, RED"Error: no access to Exit or Collectable."RESET);
 		return (0);
 	}
 	close_temp_game(temp_game);

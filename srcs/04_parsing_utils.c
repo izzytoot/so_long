@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   04_parsing_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:49:37 by root              #+#    #+#             */
-/*   Updated: 2025/01/21 17:35:06 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/01/22 19:32:18 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,11 @@ t_game	set_game_start(t_game *game)
 	game->pos_c = NULL;
 	game->mlx = NULL;
 	game->win = NULL;
-	game->img_super_kiwi = NULL;
-	game->img_lawn = NULL;
-	game->img_water = NULL;
-	game->img_kiwi_fruit = NULL;
-	game->img_box_closed = NULL;
-	game->img_box_open = NULL;
+	game->img = NULL;
 	game->open_box = false;
+	game->pos_player.y = 0;
+	game->pos_player.x = 0;
+	game->nb_moves = 0;
 	return (*game);
 }
 
@@ -125,15 +123,3 @@ void	copy_pos_c(t_game	*original_game, t_game *temp_game)
 	}
 }
 
-void print_map(char **map, t_game *game)
-{
-	int	i = 0;
-
-	while (i < game->map_height)
-	{
-		ft_printf("%s", map[i]);
-		if (i != game->map_height)
-			ft_printf("\n");
-		i++;
-	}
-}

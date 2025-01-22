@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   00_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:12:02 by root              #+#    #+#             */
-/*   Updated: 2025/01/21 17:39:50 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/01/22 19:43:46 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		ft_printf("\033[0;31mNo map added. Run: ./so_long <map_file>\n\033[0m");
+		ft_printf(RED"To play game run: ./so_long <map_file>.\n"RESET);
 		return (0);
 	}
 	super_kiwi = set_game_start(&super_kiwi);
@@ -29,7 +29,14 @@ int	main(int ac, char **av)
 		return (0);
 	super_kiwi.mlx = mlx_init();
 	open_game(&super_kiwi);
-	close_game(&super_kiwi, "The game has ended!");
+	close_game(&super_kiwi, GREEN"The game was shut down!"RESET);
 	return (0);
 }
-
+/*
+função rato ?? + se sim, verificar numeros rato
+verificar aumento de janela
+mudar chão
+caixa aberta/fechada
+loop hook - preciso?
+erros valgrind???
+*/

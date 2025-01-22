@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"random": "cpp",
-		"so_long.h": "c"
+		"so_long.h": "c",
+		"limits.h": "c"
 	}
 }

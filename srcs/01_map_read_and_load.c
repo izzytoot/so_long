@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_read_and_load.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 18:04:32 by root              #+#    #+#             */
-/*   Updated: 2025/01/20 15:44:16 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:31:39 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	load_line_to_map(t_game *game, char *line)
 	i = 0;
 	temp = malloc(sizeof(char *) * (game->map_height + 2));
 	if (!temp)
-		close_game(game, "\033[0;31mError: memory allocation failed.\033[0m");
+		return (0);
 	while (i < game->map_height)
 	{
 		temp[i] = game->map[i];

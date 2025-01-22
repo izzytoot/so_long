@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:12:27 by root              #+#    #+#             */
-/*   Updated: 2025/01/21 17:35:27 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/01/22 19:33:59 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-# define TILE_SIZE 32
 
 # include "libft/libft.h"
 # include "mlx_linux/mlx.h"
@@ -29,6 +28,20 @@
 /*                                    MACROS                                  */
 /* ************************************************************************** */
 
+# define TILE_SIZE	32
+# define RED		"\033[0;31m"
+# define GREEN		"\033[0;32m"  
+# define YELLOW		"\033[0;33m" 
+# define RESET		"\033[0m"
+# define KEY_W		119
+# define KEY_A		97
+# define KEY_S		115
+# define KEY_D		100
+# define KEY_ESC	65307
+# define KEY_LEFT	65361
+# define KEY_UP		65362
+# define KEY_RIGHT	65363
+# define KEY_DOWN	65364
 
 /* ************************************************************************** */
 /*                                    STRUCTS                                 */
@@ -39,6 +52,18 @@ typedef struct s_position
 	int	x;
 	int	y;
 }	t_position;
+
+
+typedef struct s_images
+{
+	void		*super_kiwi;
+	void		*lawn;
+	void		*water;
+	void		*kiwi_fruit;
+	void		*box_closed;
+	void		*box_open;
+}	t_images;
+
 
 typedef struct s_game
 {
@@ -54,58 +79,64 @@ typedef struct s_game
 	t_position	*pos_c;
 	void		*mlx;
 	void		*win;
-	void		*img_super_kiwi;
-	void		*img_lawn;
-	void		*img_water;
-	void		*img_kiwi_fruit;
-	void		*img_box_closed;
-	void		*img_box_open;
+	t_images	*img;
 	bool		open_box;
+	int			nb_moves;
+	t_position	pos_player;
 }	t_game;
 
 /* ************************************************************************** */
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
 
-//map_read_and_load.c
+//01. map_read_and_load.c
 int		map_loading(t_game *game, char *map_file);
 int		load_line_to_map(t_game *game, char *line);
 int		width_of_map(char *str);
 
-//map_error_check.c
+//02. map_error_check.c
 int		check_form(t_game *game);
 int		check_walls(t_game *game);
 int		check_e_p(t_game *game);
 int		check_c(t_game *game);
 int		check_map_errors(t_game *game);
 
-//map_access_check.c
+//03. map_access_check.c
 int		map_access_check(t_game *game);
 void	flood_fill(t_game *game, t_position	starting_point, char target);
 
-//parsing_utils.c
+//04. parsing_utils.c
 t_game	set_game_start(t_game *game);
 void	assign_p_e(t_game *game, int y, int x, char c);
 void	assign_c(t_game *game);
 void	copy_map(t_game	*original_game, t_game *temp_game);
 void	copy_pos_c(t_game	*original_game, t_game *temp_game);
 
-// start_game.c
+//05.start_game.c
 void	open_game(t_game *game);
 void	upload_images(t_game *game);
-void	render_map(t_game *game);
 void	place_image(t_game *game, int y, int x);
+void	user_controls(t_game *game);
 
-//game_utils.c
+//06. play_game.c
+int		key_controls(int keycode, t_game *game);
+int		vertical_moves(t_game *game, int keycode);
+int		horizontal_moves(t_game *game, int keycode);
+int		move_player(t_game *game, int y, int x);
+
+
+//07.game_utils.c
+void	render_map(t_game *game);
+int		mouse_control(int keycode, t_game *game);
+void	getting_closer(t_game *game);
+int		main_loop(t_game *game);
 int 	close_window(void *param);
 
-//free_clear_and_close.c
+//08.free_clear_and_close.c
 void	close_temp_game(t_game *temp_game);
 void	clear_game(t_game *game);
-void	kill_game(t_game *game);
+void	kill_game_visuals(t_game *game);
 void	close_game(t_game *game, char *message);
 
-//to delete
-void	print_map(char **map, t_game *game);
 
 #endif

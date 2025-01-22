@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+         #
+#    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 16:07:12 by root              #+#    #+#              #
-#    Updated: 2025/01/20 16:54:51 by icunha-t         ###   ########.fr        #
+#    Updated: 2025/01/22 16:22:25 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 NAME = so_long
 HEADER_PATH = so_long.h
 SRCS_PATH = ./srcs/
-SRCS = $(addprefix $(SRCS_PATH)/, main.c map_read_and_load.c map_error_check.c map_access_check.c start_game.c free_clear_and_close.c parsing_utils.c game_utils.c)
+SRCS = $(addprefix $(SRCS_PATH), 00_main.c 01_map_read_and_load.c 02_map_error_check.c 03_map_access_check.c 04_parsing_utils.c 05_start_game.c 06_play_game.c 07_game_utils.c 08_free_clear_and_close.c)
 OBJS = $(SRCS:.c=.o)
 
 LIBFT_DIR = ./libft/

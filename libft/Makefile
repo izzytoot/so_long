@@ -6,7 +6,7 @@
 #    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 13:30:18 by icunha-t          #+#    #+#              #
-#    Updated: 2025/01/13 12:15:36 by root             ###   ########.fr        #
+#    Updated: 2025/01/22 11:25:36 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ C_COMP = cc
 
 FLAGS = -Wall -Werror -Wextra
 
-FLAGS += -g
+FLAGS += -g -fPIE
 
 RM = rm -f
 
