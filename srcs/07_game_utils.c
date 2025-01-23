@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   07_game_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:52:35 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/01/22 19:36:57 by root             ###   ########.fr       */
+/*   Updated: 2025/01/23 16:11:38 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	render_map(t_game *game)
 	int	width;
 
 	height = 0;
-	while(height < game->map_height)
+	while (height < game->map_height)
 	{
 		width = 0;
-		while(width < game->map_width)
+		while (width < game->map_width)
 		{
 			place_image(game, height, width);
 			width++;
@@ -30,20 +30,22 @@ void	render_map(t_game *game)
 	}
 }
 
-int	mouse_control(int keycode, t_game *game)
+int	key_controls(int keycode, t_game *game)
 {
-	(void)game;
+	int	move;
 
-	if (keycode == 1)
-		ft_printf("left mouse button clicked\n");
-	if (keycode == 2)
-		ft_printf("right mouse button clicked\n");
-	if (keycode == 3)
-		ft_printf("middle mouse button clicked\n");
-	if (keycode == 4)
-		ft_printf("scrolled up with mouse\n");
-	if (keycode == 5)
-		ft_printf("scrolled down with mouse\n");
+	if (keycode == KEY_ESC)
+		close_game(game, YELLOW"Game window was closed!\n"RESET);
+	if (keycode == KEY_W || keycode == KEY_UP)
+		move = vertical_moves_up(game);
+	if (keycode == KEY_S || keycode == KEY_DOWN)
+		move = vertical_moves_down(game);
+	if (keycode == KEY_A || keycode == KEY_LEFT)
+		move = horizontal_moves_left(game);
+	if (keycode == KEY_D || keycode == KEY_RIGHT)
+		move = horizontal_moves_right(game);
+	if (move)
+		render_map(game);
 	return (0);
 }
 
@@ -51,9 +53,11 @@ void	getting_closer(t_game *game)
 {
 	game->nb_collectables--;
 	if (game->nb_collectables > 1)
-		ft_printf(YELLOW"Got it! %d kiwis to go.\n"RESET, game->nb_collectables);
+		ft_printf(YELLOW"Got it! %d kiwis to go.\n"RESET,
+			game->nb_collectables);
 	if (game->nb_collectables == 1)
-		ft_printf(YELLOW"Got it! %d kiwi to go.\n"RESET, game->nb_collectables);
+		ft_printf(YELLOW"Got it! %d kiwi to go.\n"RESET,
+			game->nb_collectables);
 	if (game->nb_collectables < 1)
 	{
 		game->open_box = true;
@@ -67,9 +71,11 @@ int	main_loop(t_game *game)
 	return (0);
 }
 
-int close_window(void *param)
+int	close_window(void *param)
 {
-    t_game *game = (t_game *)param;
-    close_game(game, YELLOW"The game has ended!"RESET);
-    return (0);
+	t_game	*game;
+
+	game = (t_game *)param;
+	close_game(game, YELLOW"The game has ended!\n"RESET);
+	return (0);
 }

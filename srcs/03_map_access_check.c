@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_access_check.c                                 :+:      :+:    :+:   */
+/*   03_map_access_check.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 15:07:21 by root              #+#    #+#             */
-/*   Updated: 2025/01/22 14:43:12 by root             ###   ########.fr       */
+/*   Updated: 2025/01/23 15:59:03 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	prep_chars(t_game *game)
 		{
 			if (game->map[y][x] == 'P')
 				game->map[y][x] = '0';
-			if (game->map[y][x] == 'E')
-				game->map[y][x] = '0';
 			if (game->map[y][x] == 'C')
 				game->map[y][x] = '0';
 			x++;
@@ -43,8 +41,15 @@ void	flood_fill(t_game *game, t_position	start_p, char target)
 		|| start_p.y < 0 || start_p.y >= game->map_height)
 		return ;
 	if (game->map[start_p.y][start_p.x] == 'F'
-		|| game->map[start_p.y][start_p.x] != target)
+		|| game->map[start_p.y][start_p.x]
+		!= target || game->map[start_p.y][start_p.x] == 'E')
+	{
+		if (game->map[start_p.y][start_p.x] == 'E')
+		{
+			game->exit_access = true;
+		}
 		return ;
+	}
 	game->map[start_p.y][start_p.x] = 'F';
 	new_position = (t_position){start_p.x + 1, start_p.y};
 	flood_fill(game, new_position, target);
@@ -58,11 +63,9 @@ void	flood_fill(t_game *game, t_position	start_p, char target)
 
 int	check_route(t_game *game)
 {
-	t_position	new_e;
 	int			c;
 
-	new_e = (t_position){game->pos_e.y, game->pos_e.x};
-	if (game->map[new_e.y][new_e.x] != 'F')
+	if (!game->exit_access)
 		return (0);
 	c = 0;
 	while (c < game->nb_collectables)
@@ -95,7 +98,7 @@ int	map_access_check(t_game *game)
 	if (!check_route(temp_game))
 	{
 		close_temp_game(temp_game);
-		close_game(game, RED"Error: no access to Exit or Collectable."RESET);
+		close_game(game, RED"Error: no access to Exit or Collectable.\n"RESET);
 		return (0);
 	}
 	close_temp_game(temp_game);

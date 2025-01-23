@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:12:27 by root              #+#    #+#             */
-/*   Updated: 2025/01/22 19:33:59 by root             ###   ########.fr       */
+/*   Updated: 2025/01/23 19:11:29 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,15 @@ typedef struct s_position
 	int	y;
 }	t_position;
 
-
 typedef struct s_images
 {
 	void		*super_kiwi;
-	void		*lawn;
+	void		*tile;
 	void		*water;
 	void		*kiwi_fruit;
 	void		*box_closed;
 	void		*box_open;
 }	t_images;
-
 
 typedef struct s_game
 {
@@ -74,12 +72,14 @@ typedef struct s_game
 	int			nb_players;
 	int			nb_exit;
 	int			nb_collectables;
+	bool		exit_access;
 	t_position	pos_p;
 	t_position	pos_e;
 	t_position	*pos_c;
 	void		*mlx;
 	void		*win;
 	t_images	*img;
+	bool		start;
 	bool		open_box;
 	int			nb_moves;
 	t_position	pos_player;
@@ -120,23 +120,22 @@ void	user_controls(t_game *game);
 
 //06. play_game.c
 int		key_controls(int keycode, t_game *game);
-int		vertical_moves(t_game *game, int keycode);
-int		horizontal_moves(t_game *game, int keycode);
+int		vertical_moves_up(t_game *game);
+int		vertical_moves_down(t_game *game);
+int		horizontal_moves_right(t_game *game);
+int		horizontal_moves_left(t_game *game);
 int		move_player(t_game *game, int y, int x);
-
 
 //07.game_utils.c
 void	render_map(t_game *game);
-int		mouse_control(int keycode, t_game *game);
 void	getting_closer(t_game *game);
 int		main_loop(t_game *game);
-int 	close_window(void *param);
+int		close_window(void *param);
 
 //08.free_clear_and_close.c
 void	close_temp_game(t_game *temp_game);
 void	clear_game(t_game *game);
 void	kill_game_visuals(t_game *game);
 void	close_game(t_game *game, char *message);
-
 
 #endif

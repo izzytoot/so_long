@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   04_parsing_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:49:37 by root              #+#    #+#             */
-/*   Updated: 2025/01/22 19:32:18 by root             ###   ########.fr       */
+/*   Updated: 2025/01/23 15:06:54 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_game	set_game_start(t_game *game)
 	game->nb_players = 0;
 	game->nb_exit = 0;
 	game->nb_collectables = 0;
+	game->exit_access = false;
 	game->pos_p.y = 0;
 	game->pos_p.x = 0;
 	game->pos_e.y = 0;
@@ -29,6 +30,7 @@ t_game	set_game_start(t_game *game)
 	game->mlx = NULL;
 	game->win = NULL;
 	game->img = NULL;
+	game->start = false;
 	game->open_box = false;
 	game->pos_player.y = 0;
 	game->pos_player.x = 0;
@@ -122,4 +124,3 @@ void	copy_pos_c(t_game	*original_game, t_game *temp_game)
 		i++;
 	}
 }
-
