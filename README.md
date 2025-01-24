@@ -29,7 +29,6 @@ The goal is for the player to collect all the collectables on the map before goi
 
 ### PART 1 - Parsing
 <div aling="left">
-    <img src="images_readme/workflow_parsing.png">
 </div>
 1. Checking if there is a map.
 2. Reading and loading the map.
