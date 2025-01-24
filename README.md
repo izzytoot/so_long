@@ -28,21 +28,23 @@ The goal is for the player to collect all the collectables on the map before goi
 ## 5. About the code
 
 ### PART 1 - Parsing
-<div aling="left">
-</div>
 1. Checking if there is a map.
 2. Reading and loading the map.
 3. Checking for basic map errors.
 4. Checking for access errors.
 
-## PART 2 - The game
 <div aling="left">
-    <img src="images_readme/workflow_game.png">
+     <img src="images_readme/workflow_parsing.png">
 </div>
 
+## PART 2 - The game
 1. Starting the game.
 2. Playing the game.
 3. Closing the game.
+
+<div aling="left">
+    <img src="images_readme/workflow_game.png">
+</div>
 
 ## 4. About Super Kiwi
 Super Kiwi is a jolly nice cat thal loves to eat kiwis and playing in cardboard boxes. He must collect all the kiwis in the game before getting to the open box!
