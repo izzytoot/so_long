@@ -51,13 +51,13 @@ Super Kiwi is a jolly nice cat thal loves to eat kiwis and playing in cardboard 
 
 ### To test invalid maps:
 1. Download the zipped folder;
-2. Run <make> to compile;
-3. Run <./so_long maps/invadid/map[...].ber> (run with any of the invalid map options.
+2. Run < make > to compile;
+3. Run < ./so_long maps/invadid/map[...].ber > (run with any of the invalid map options.
    
 ### To play:
 1. Download the zipped folder;
-2. Run <make> to compile;
-3. Run <./so_long maps/valid/map1_valid_big.ber> OR <./so_long maps/valid_map2_valid_small.ber>
+2. Run < make > to compile;
+3. Run < ./so_long maps/valid/map1_valid_big.ber > OR < ./so_long maps/valid_map2_valid_small.ber >
 <div aling="left">
     <img src="images_readme/Super_kiwi_map1.png">
 </div>
