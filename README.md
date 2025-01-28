@@ -1,8 +1,6 @@
 # SO_LONG: Super Kiwi
 
-<div aling="center">
-    <img src="images_readme/Super_kiwi_map2.png">
-</div>
+https://github.com/user-attachments/assets/bf712f01-820c-40d6-9775-0249087fa252
 
 ## 1. About the project
 This project aims to create a basic 2D game using the mlx library, where a character must collect all the collectables in the game and exit throught the exit point. 
