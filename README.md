@@ -1,4 +1,4 @@
-# SO_LONG: Super Kiwi
+# 🐈‍⬛ SO_LONG: Super Kiwi
 
 https://github.com/user-attachments/assets/bf712f01-820c-40d6-9775-0249087fa252
 
